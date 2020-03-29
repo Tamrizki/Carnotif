@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "351088613920",
+    "firebase_url": "https://carnotif-c59cc.firebaseio.com",
+    "project_id": "carnotif-c59cc",
+    "storage_bucket": "carnotif-c59cc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:351088613920:android:a3eb9355a3c7ef5c81fa45",
+        "android_client_info": {
+          "package_name": "tam.pa.carnotif"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "351088613920-ins7ghc0nujbsojim98lab2e86ddjijq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tam.pa.carnotif",
+            "certificate_hash": "a5c2a68ed1e218906ffef0b8e94ee960486c8465"
+          }
+        },
+        {
+          "client_id": "351088613920-7hukqlck4jl2jqk6e8vm4aeebk5kb9fh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJZ7wzrczyP2T_l2ZgSWuwW6fzW2GdHzI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "351088613920-7hukqlck4jl2jqk6e8vm4aeebk5kb9fh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
