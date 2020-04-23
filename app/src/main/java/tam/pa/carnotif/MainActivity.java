@@ -27,19 +27,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private DatabaseReference databaseReference, databaseReferencealarm, databaseReferencelamp;
     private FirebaseDatabase database;
     private TextView tv_number;
-    private RelativeLayout relativeLayout;
-    private CardView cardview_layout;
-    private Button btn_exit;
+    private RelativeLayout relativeLayout, btn_keluar;
+    private CardView cardview_layout, btn_lamp;
+//    private Button btn_exit;
     boolean doubleBackToExitPressedOnce = false;
     private Animation animation, anim2;
+    private ImageView img_lamp;
+    private int lamp = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Initialization();
+        anim2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.scale_out);
         animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.scale_animation);
-        animation.setRepeatCount(Animation.INFINITE);
         cardview_layout.setAnimation(animation);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("jarak");
@@ -47,10 +49,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         databaseReferencelamp = FirebaseDatabase.getInstance().getReference("lampu");
         database = FirebaseDatabase.getInstance();
 
-        database.getReference("aktifitas");
+//        database.getReference("aktifitas");
         DatabaseReference databaseReference1 = database.getReference("aktifitas");
         databaseReference1.setValue(1);
-
+        setIconLamp();
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -65,14 +67,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        btn_exit.setOnClickListener(this);
+        btn_keluar.setOnClickListener(this);
+        btn_lamp.setOnClickListener(this);
+    }
+
+    private void setIconLamp() {
+        if (lamp%2 == 0){
+            databaseReferencelamp.setValue(0);
+            img_lamp.setImageResource(R.drawable.lamp);
+        }else {
+            databaseReferencelamp.setValue(2);
+            img_lamp.setImageResource(R.drawable.wheel);
+        }
     }
 
     private void Initialization() {
         tv_number = findViewById(R.id.tv_numb);
         relativeLayout = findViewById(R.id.relative);
         cardview_layout = findViewById(R.id.cardview);
-        btn_exit = findViewById(R.id.btn_exit);
+        btn_keluar = findViewById(R.id.btn_keluar);
+        btn_lamp = findViewById(R.id.btn_lamp);
+        img_lamp = findViewById(R.id.img_lamp);
     }
 
     @Override
@@ -87,7 +102,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 @Override
                 public void onFinish() {
-                    database.getReference("aktifitas");
                     DatabaseReference databaseReference1 = database.getReference("aktifitas");
                     databaseReference1.setValue(0);
                 }
@@ -118,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             relativeLayout.setBackgroundResource(R.drawable.bg_number_yellow);
             tv_number.setTextColor(getResources().getColor(R.color.colorWhite));
             tv_number.setText(number.toString());
-        }else if (number > 50 && number < 200)
+        }else if (number > 100 && number < 200)
         {
             relativeLayout.setBackgroundResource(R.drawable.bg_number_green);
             tv_number.setTextColor(getResources().getColor(R.color.colorWhite));
@@ -133,31 +147,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-//        if (v == cv_alarm)
-//        {database.getReference("alarm");
-//            DatabaseReference databaseReference1 = database.getReference("alarm");
-//            if (bol_alarm  == false){
-//                databaseReference1.setValue(1);
-//            }else {
-//                databaseReference1.setValue(0);
-//            }
-//
-//        }
-//        else if (v == cv_lamp)
-//        {
-//            database.getReference("lampu");
-//            DatabaseReference databaseReference1 = database.getReference("lampu");
-//            if (bol_lamp == false){
-//                databaseReference1.setValue(1);
-//            }else {
-//                databaseReference1.setValue(0);
-//            }
-//
-//        }
-        if (v == btn_exit)
+        if (v == btn_keluar)
         {
+            databaseReferencealarm = FirebaseDatabase.getInstance().getReference("alarm");
+            databaseReferencealarm.setValue(0);
             finish();
-
             new CountDownTimer(10000, 10000){
 
                 @Override
@@ -167,11 +161,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 @Override
                 public void onFinish() {
-                    database.getReference("aktifitas");
                     DatabaseReference databaseReference1 = database.getReference("aktifitas");
                     databaseReference1.setValue(0);
                 }
             }.start();
+        }else if (v == btn_lamp){
+            lamp++;
+            setIconLamp();
         }
     }
 }
