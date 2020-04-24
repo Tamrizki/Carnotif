@@ -4,9 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Animation animation, anim2;
     private ImageView img_lamp;
     private int lamp = 1;
+    private Vibrator vibrator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         anim2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.scale_out);
         animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.scale_animation);
         cardview_layout.setAnimation(animation);
+
+        vibrator = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("jarak");
         databaseReferencealarm = FirebaseDatabase.getInstance().getReference("alarm");
@@ -120,27 +125,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setBackground(String value) {
-        Double number = Double.valueOf(value);
+        int number = Integer.valueOf(value);
         if (number <= 30)
         {
+            vibrator.vibrate(10000);
             relativeLayout.setBackgroundResource(R.drawable.bg_number_red);
             tv_number.setTextColor(getResources().getColor(R.color.colorWhite));
-            tv_number.setText(number.toString());
+//            tv_number.setText(number.toString());
         }
         else if (number >30 && number <= 100)
         {
             relativeLayout.setBackgroundResource(R.drawable.bg_number_yellow);
             tv_number.setTextColor(getResources().getColor(R.color.colorWhite));
-            tv_number.setText(number.toString());
-        }else if (number > 100 && number < 200)
-        {
+            vibrator.vibrate(500);
+//            tv_number.setText(number.toString());
+        }else if (number > 100 && number < 250) {
             relativeLayout.setBackgroundResource(R.drawable.bg_number_green);
             tv_number.setTextColor(getResources().getColor(R.color.colorWhite));
-            tv_number.setText(number.toString());
+//            tv_number.setText(number.toString());
         }else {
             relativeLayout.setBackgroundResource(R.drawable.bg_number_white);
             tv_number.setTextColor(getResources().getColor(R.color.colorBlack));
-            tv_number.setText(">200");
+            tv_number.setText(">250");
         }
 
     }
@@ -156,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 @Override
                 public void onTick(long millisUntilFinished) {
-                    Toast.makeText(MainActivity.this, "On Tick...", Toast.LENGTH_SHORT).show();
+
                 }
 
                 @Override
