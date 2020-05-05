@@ -30,7 +30,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FirebaseDatabase database;
     private TextView tv_number;
     private RelativeLayout relativeLayout, btn_keluar;
-    private CardView cardview_layout, btn_lamp;
+    private CardView cardview_layout;
+    private RelativeLayout btn_lamp;
 //    private Button btn_exit;
     boolean doubleBackToExitPressedOnce = false;
     private Animation animation, anim2;
@@ -48,7 +49,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cardview_layout.setAnimation(animation);
 
         vibrator = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
-
+        databaseReferencealarm = FirebaseDatabase.getInstance().getReference("alarm");
+        databaseReferencealarm.setValue(1);
         databaseReference = FirebaseDatabase.getInstance().getReference("jarak");
         databaseReferencealarm = FirebaseDatabase.getInstance().getReference("alarm");
         databaseReferencelamp = FirebaseDatabase.getInstance().getReference("lampu");
@@ -79,10 +81,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void setIconLamp() {
         if (lamp%2 == 0){
             databaseReferencelamp.setValue(0);
-            img_lamp.setImageResource(R.drawable.lamp);
+            img_lamp.setImageResource(R.drawable.wheel);
         }else {
             databaseReferencelamp.setValue(2);
-            img_lamp.setImageResource(R.drawable.wheel);
+            img_lamp.setImageResource(R.drawable.lamp);
         }
     }
 
@@ -91,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         relativeLayout = findViewById(R.id.relative);
         cardview_layout = findViewById(R.id.cardview);
         btn_keluar = findViewById(R.id.btn_keluar);
-        btn_lamp = findViewById(R.id.btn_lamp);
+        btn_lamp = findViewById(R.id.lampuw);
         img_lamp = findViewById(R.id.img_lamp);
     }
 
@@ -126,20 +128,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void setBackground(String value) {
         int number = Integer.valueOf(value);
-        if (number <= 30)
+        if (number <= 50)
         {
             vibrator.vibrate(10000);
             relativeLayout.setBackgroundResource(R.drawable.bg_number_red);
             tv_number.setTextColor(getResources().getColor(R.color.colorWhite));
 //            tv_number.setText(number.toString());
         }
-        else if (number >30 && number <= 100)
+        else if (number >=51 && number <= 150)
         {
             relativeLayout.setBackgroundResource(R.drawable.bg_number_yellow);
             tv_number.setTextColor(getResources().getColor(R.color.colorWhite));
             vibrator.vibrate(500);
 //            tv_number.setText(number.toString());
-        }else if (number > 100 && number < 250) {
+        }else if (number >= 151 && number < 250) {
             relativeLayout.setBackgroundResource(R.drawable.bg_number_green);
             tv_number.setTextColor(getResources().getColor(R.color.colorWhite));
 //            tv_number.setText(number.toString());
