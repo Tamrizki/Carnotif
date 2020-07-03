@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -13,7 +12,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -32,7 +30,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private RelativeLayout relativeLayout, btn_keluar;
     private CardView cardview_layout;
     private RelativeLayout btn_lamp;
-//    private Button btn_exit;
     boolean doubleBackToExitPressedOnce = false;
     private Animation animation, anim2;
     private ImageView img_lamp;
@@ -47,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         anim2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.scale_out);
         animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.scale_animation);
         cardview_layout.setAnimation(animation);
-
         vibrator = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
         databaseReferencealarm = FirebaseDatabase.getInstance().getReference("alarm");
         databaseReferencealarm.setValue(1);
@@ -55,8 +51,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         databaseReferencealarm = FirebaseDatabase.getInstance().getReference("alarm");
         databaseReferencelamp = FirebaseDatabase.getInstance().getReference("lampu");
         database = FirebaseDatabase.getInstance();
-
-//        database.getReference("aktifitas");
         DatabaseReference databaseReference1 = database.getReference("aktifitas");
         databaseReference1.setValue(1);
         setIconLamp();
@@ -93,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         relativeLayout = findViewById(R.id.relative);
         cardview_layout = findViewById(R.id.cardview);
         btn_keluar = findViewById(R.id.btn_keluar);
-        btn_lamp = findViewById(R.id.lampuw);
+        btn_lamp = findViewById(R.id.lampu);
         img_lamp = findViewById(R.id.img_lamp);
     }
 
@@ -102,11 +96,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (doubleBackToExitPressedOnce) {
             super.onBackPressed();
             new CountDownTimer(10000, 10000){
-
                 @Override
                 public void onTick(long millisUntilFinished) {
                 }
-
                 @Override
                 public void onFinish() {
                     DatabaseReference databaseReference1 = database.getReference("aktifitas");
@@ -133,18 +125,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             vibrator.vibrate(10000);
             relativeLayout.setBackgroundResource(R.drawable.bg_number_red);
             tv_number.setTextColor(getResources().getColor(R.color.colorWhite));
-//            tv_number.setText(number.toString());
         }
         else if (number >=51 && number <= 150)
         {
             relativeLayout.setBackgroundResource(R.drawable.bg_number_yellow);
             tv_number.setTextColor(getResources().getColor(R.color.colorWhite));
             vibrator.vibrate(500);
-//            tv_number.setText(number.toString());
         }else if (number >= 151 && number < 250) {
             relativeLayout.setBackgroundResource(R.drawable.bg_number_green);
             tv_number.setTextColor(getResources().getColor(R.color.colorWhite));
-//            tv_number.setText(number.toString());
         }else {
             relativeLayout.setBackgroundResource(R.drawable.bg_number_white);
             tv_number.setTextColor(getResources().getColor(R.color.colorBlack));

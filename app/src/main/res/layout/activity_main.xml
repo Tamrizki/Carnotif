@@ -59,6 +59,7 @@
         android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true">
         <RelativeLayout
+            android:id="@+id/lampu"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@drawable/btn_lampu"
@@ -70,7 +71,7 @@
                 android:src="@drawable/lamp"/>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
-        <RelativeLayout
+    <RelativeLayout
             android:id="@+id/btn_keluar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
