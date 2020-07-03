@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             relativeLayout.setBackgroundResource(R.drawable.bg_number_yellow);
             tv_number.setTextColor(getResources().getColor(R.color.colorWhite));
             vibrator.vibrate(500);
-        }else if (number >= 151 && number < 250) {
+        }else if (number >= 151 && number <= 250) {
             relativeLayout.setBackgroundResource(R.drawable.bg_number_green);
             tv_number.setTextColor(getResources().getColor(R.color.colorWhite));
         }else {
